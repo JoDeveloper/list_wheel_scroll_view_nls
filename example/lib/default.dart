@@ -1,6 +1,6 @@
 import 'package:example/widgets/colored_container.dart';
 import 'package:flutter/material.dart';
-import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_x.dart';
+import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
 
 main() {
   runApp(
