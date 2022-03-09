@@ -1,5 +1,7 @@
 # CHANGELOG
 
+## [0.0.3] - Migrate to null-safety
+
 ## [0.0.2] - Fixes
 
 * Fix propagate attributes down to ListWheelScrollView
