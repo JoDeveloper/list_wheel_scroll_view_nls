@@ -4,7 +4,7 @@ import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_x.dart';
 
 main() {
   runApp(
-    MaterialApp(
+    const MaterialApp(
       home: Home(),
     ),
   );
@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('With Builder'),
+        title: const Text('With Builder'),
       ),
       body: Center(
         child: Container(
