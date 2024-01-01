@@ -81,7 +81,7 @@ class ListWheelScrollViewX extends StatelessWidget {
   final Clip clipBehavior;
 
   const ListWheelScrollViewX({
-    Key? key,
+    super.key,
     this.scrollDirection = Axis.vertical,
     this.controller,
     this.physics,
@@ -96,12 +96,12 @@ class ListWheelScrollViewX extends StatelessWidget {
     this.onSelectedItemChanged,
     this.renderChildrenOutsideViewport = false,
     this.clipBehavior = Clip.hardEdge,
+    this.childDelegate,
     required this.children,
-  })  : childDelegate = null,
-        super(key: key);
+  });
 
   const ListWheelScrollViewX.useDelegate({
-    Key? key,
+    super.key,
     this.scrollDirection = Axis.vertical,
     this.controller,
     this.physics,
@@ -117,12 +117,12 @@ class ListWheelScrollViewX extends StatelessWidget {
     this.renderChildrenOutsideViewport = false,
     this.clipBehavior = Clip.hardEdge,
     required this.childDelegate,
-  })  : children = null,
-        super(key: key);
+    this.children,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final _childDelegate = children != null
+    final childDelegate = children != null
         ? ListWheelChildListDelegate(
             children: children!.map((child) {
             return RotatedBox(
@@ -134,7 +134,7 @@ class ListWheelScrollViewX extends StatelessWidget {
             builder: (context, index) {
               return RotatedBox(
                 quarterTurns: scrollDirection == Axis.horizontal ? 1 : 0,
-                child: childDelegate!.build(context, index),
+                child: this.childDelegate!.build(context, index),
               );
             },
           );
@@ -155,7 +155,7 @@ class ListWheelScrollViewX extends StatelessWidget {
         onSelectedItemChanged: onSelectedItemChanged,
         renderChildrenOutsideViewport: renderChildrenOutsideViewport,
         clipBehavior: clipBehavior,
-        childDelegate: _childDelegate,
+        childDelegate: childDelegate,
       ),
     );
   }

@@ -1,6 +1,7 @@
-import 'package:example/widgets/colored_container.dart';
 import 'package:flutter/material.dart';
 import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
+
+import 'widgets/colored_container.dart';
 
 main() {
   runApp(
@@ -11,14 +12,14 @@ main() {
 }
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
   Color _getColor(int index) {
-    List<Color> _colors = [
+    List<Color> colors = [
       Colors.red,
       Colors.yellow,
       Colors.green,
     ];
-    return _colors[index % _colors.length];
+    return colors[index % colors.length];
   }
 
   @override
@@ -35,7 +36,8 @@ class Home extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             diameterRatio: 1000,
             itemExtent: 80,
-            childDelegate: ListWheelChildBuilderDelegate(builder: (context, index) {
+            childDelegate:
+                ListWheelChildBuilderDelegate(builder: (context, index) {
               return ColoredContainer(_getColor(index));
             }),
           ),

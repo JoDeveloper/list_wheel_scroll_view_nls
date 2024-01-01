@@ -1,17 +1,17 @@
 name: list_wheel_scroll_view_nls
-version: 0.0.3
+version: 0.0.4
 description: A flutter project which add scroll direction to ListWheelScrollView allowing you to have horizontal ListWheelScroolView.
 repository: https://github.com/JoDeveloper/list_wheel_scroll_view_nls
-environment: 
-  sdk: '>=2.12.0 <3.0.0'
+environment:
+  sdk: '>=3.1.0 <4.0.0'
 
-dependencies: 
-  flutter: 
+dependencies:
+  flutter:
     sdk: flutter
 
-dev_dependencies: 
-  flutter_lints: 1.0.4
-  flutter_test: 
+dev_dependencies:
+  flutter_lints:
+  flutter_test:
     sdk: flutter
 
 flutter: null
