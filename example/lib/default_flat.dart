@@ -3,7 +3,7 @@ import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
 
 import 'widgets/colored_container.dart';
 
-main() {
+void main() {
   runApp(
     const MaterialApp(
       home: Home(),

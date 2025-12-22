@@ -1,6 +1,3 @@
-library list_wheel_scroll_view_nls;
-
-/// A Calculator.
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -78,7 +75,13 @@ class ListWheelScrollViewX extends StatelessWidget {
   /// {@macro flutter.widgets.Clip}
   ///
   /// Defaults to [Clip.hardEdge].
+  /// {@macro flutter.widgets.Clip}
+  ///
+  /// Defaults to [Clip.hardEdge].
   final Clip clipBehavior;
+
+  /// {@macro flutter.widgets.scrollable.restorationId}
+  final String? restorationId;
 
   const ListWheelScrollViewX({
     super.key,
@@ -96,6 +99,7 @@ class ListWheelScrollViewX extends StatelessWidget {
     this.onSelectedItemChanged,
     this.renderChildrenOutsideViewport = false,
     this.clipBehavior = Clip.hardEdge,
+    this.restorationId,
     this.childDelegate,
     required this.children,
   });
@@ -116,6 +120,7 @@ class ListWheelScrollViewX extends StatelessWidget {
     this.onSelectedItemChanged,
     this.renderChildrenOutsideViewport = false,
     this.clipBehavior = Clip.hardEdge,
+    this.restorationId,
     required this.childDelegate,
     this.children,
   });
@@ -125,38 +130,50 @@ class ListWheelScrollViewX extends StatelessWidget {
     final childDelegate = children != null
         ? ListWheelChildListDelegate(
             children: children!.map((child) {
-            return RotatedBox(
-              quarterTurns: scrollDirection == Axis.horizontal ? 1 : 0,
-              child: child,
-            );
-          }).toList())
+              if (scrollDirection == Axis.vertical) return child;
+              return RotatedBox(
+                quarterTurns: 1,
+                child: child,
+              );
+            }).toList(),
+          )
         : ListWheelChildBuilderDelegate(
             builder: (context, index) {
+              final child = this.childDelegate!.build(context, index);
+              if (child == null) return null;
+              if (scrollDirection == Axis.vertical) return child;
               return RotatedBox(
-                quarterTurns: scrollDirection == Axis.horizontal ? 1 : 0,
-                child: this.childDelegate!.build(context, index),
+                quarterTurns: 1,
+                child: child,
               );
             },
           );
 
+    final listWheelScrollView = ListWheelScrollView.useDelegate(
+      controller: controller,
+      physics: physics ?? const FixedExtentScrollPhysics(),
+      diameterRatio: diameterRatio,
+      perspective: perspective,
+      offAxisFraction: offAxisFraction,
+      useMagnifier: useMagnifier,
+      magnification: magnification,
+      overAndUnderCenterOpacity: overAndUnderCenterOpacity,
+      itemExtent: itemExtent,
+      squeeze: squeeze,
+      onSelectedItemChanged: onSelectedItemChanged,
+      renderChildrenOutsideViewport: renderChildrenOutsideViewport,
+      clipBehavior: clipBehavior,
+      restorationId: restorationId,
+      childDelegate: childDelegate,
+    );
+
+    if (scrollDirection == Axis.vertical) {
+      return listWheelScrollView;
+    }
+
     return RotatedBox(
-      quarterTurns: scrollDirection == Axis.horizontal ? 3 : 0,
-      child: ListWheelScrollView.useDelegate(
-        controller: controller,
-        physics: const FixedExtentScrollPhysics(),
-        diameterRatio: diameterRatio,
-        perspective: perspective,
-        offAxisFraction: offAxisFraction,
-        useMagnifier: useMagnifier,
-        magnification: magnification,
-        overAndUnderCenterOpacity: overAndUnderCenterOpacity,
-        itemExtent: itemExtent,
-        squeeze: squeeze,
-        onSelectedItemChanged: onSelectedItemChanged,
-        renderChildrenOutsideViewport: renderChildrenOutsideViewport,
-        clipBehavior: clipBehavior,
-        childDelegate: childDelegate,
-      ),
+      quarterTurns: 3,
+      child: listWheelScrollView,
     );
   }
 }
